@@ -10,7 +10,7 @@ A skeleton repository for starting new Go applications with recommended structur
 
    git clone <https://github.com/hyp3rd/go-base-app-skel.git> your-new-project
 
-2. Remove the existing git folder and initialize a new repository:
+2. **Remove the existing .git folder** and initialize a new repository and your go module:
 
    ```bash
    cd your-new-project
@@ -37,7 +37,19 @@ A skeleton repository for starting new Go applications with recommended structur
    }
    ```
 
-4. Initialize pre-commit and its hooks:
+### Development Setup
+
+1. Install [**Golang**](https://go.dev/dl).
+2. Install [**Docker**](https://docs.docker.com/get-docker/).
+3. Install [**GitVersion**](https://github.com/GitTools/GitVersion).
+4. Install [**Make**](https://www.gnu.org/software/make/), follow the procedure for your OS.
+5. **Set up the toolchain:**
+
+   ```bash
+   make prepare-toolchain
+   ```
+
+6. Initialize `pre-commit` (strongly recommended to create a virtual env, using for instance [PyEnv](https://github.com/pyenv/pyenv)) and its hooks:
 
 ```bash
    pip install pre-commit
@@ -61,19 +73,6 @@ A skeleton repository for starting new Go applications with recommended structur
 ├── test/ # Additional test files
 └── docs/ # Documentation
 ```
-
-## Development Setup
-
-1. Install [Golang](https://go.dev/dl).
-2. Install [Docker](https://docs.docker.com/get-docker/).
-3. Install [GitVersion](https://github.com/GitTools/GitVersion).
-4. Install [git](https://git-scm.com/downloads).
-5. Install [Make](https://www.gnu.org/software/make/), follow the procedure for your OS.
-6. Set up the toolchain:
-
-   ```bash
-   make prepare-toolchain
-   ```
 
 ## Best Practices
 
