@@ -1,6 +1,6 @@
 # Base Golang App Repository
 
-<div align="center"> <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"> <rect width="200" height="200" fill="#1E1E1E"/> <path d="M40 40H160V160H40V40Z" fill="#4A4A4A" stroke="#00ADD8" stroke-width="8"/> <path d="M70 70L130 130" stroke="#00ADD8" stroke-width="12" stroke-linecap="square"/> <path d="M130 70L70 130" stroke="#00ADD8" stroke-width="12" stroke-linecap="square"/> <circle cx="100" cy="100" r="20" fill="#00ADD8"/> <rect x="85" y="20" width="30" height="20" fill="#00ADD8"/> <rect x="85" y="160" width="30" height="20" fill="#00ADD8"/> <rect x="20" y="85" width="20" height="30" fill="#00ADD8"/> <rect x="160" y="85" width="20" height="30" fill="#00ADD8"/> </svg> <h1>Base Golang App Repository</h1> <p>A skeleton repository for starting new Go applications with recommended structure and tooling.</p> </div>
+![Logo](./assets/logo.svg)
 
 A skeleton repository for starting new Go applications with recommended structure and tooling.
 
