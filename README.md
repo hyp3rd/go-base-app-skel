@@ -17,7 +17,7 @@ A skeleton repository for starting new Go applications with recommended structur
    go mod init github.com/your-org/your-new-project
    ```
 
-3. Install VS Code Extensions Recommended by this repository:
+3. Install VS Code Extensions Recommended (optional):
 
    ```json
    {
@@ -45,6 +45,7 @@ A skeleton repository for starting new Go applications with recommended structur
 
 ## Project Structure
 
+```txt
 ├── cmd/ # Main applications
 │   └── app/ # Your application
 │       └── main.go # Application entry point
@@ -57,6 +58,7 @@ A skeleton repository for starting new Go applications with recommended structur
 ├── scripts/ # Scripts for development
 ├── test/ # Additional test files
 └── docs/ # Documentation
+```
 
 ## Development Setup
 
@@ -91,7 +93,7 @@ A skeleton repository for starting new Go applications with recommended structur
 
 ## License
 
-MIT License
+[MIT License](LICENSE)
 
 ## Contributing
 
@@ -100,3 +102,5 @@ MIT License
 3. Commit your changes
 4. Push to the branch
 5. Create a Pull Request
+
+Refer to [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
