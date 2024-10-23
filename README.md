@@ -73,7 +73,7 @@ A skeleton repository for starting new Go applications with recommended structur
 
 ## Best Practices
 
-- Follow the [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments)
+- Follow the [Go Code Review Comments](https://go.dev/wiki/CodeReviewComments)
 - Run `golangci-lint` before committing code
 - Ensure the pre-commit hooks pass
 - Write tests for new functionality
