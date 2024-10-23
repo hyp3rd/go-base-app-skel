@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# #######################################
+# Run the pre-commit
+# #######################################
+hook() {
+    # get the root of the project
+    local root_dir
+    root_dir=$(git rev-parse --show-toplevel)
+
+    # run the pre-commit hook
+    pushd "${root_dir}" || exit
+        go test -v -cover ./... || exit 1
+    popd > /dev/null || exit
+}
+
+hook
