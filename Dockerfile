@@ -34,7 +34,11 @@ RUN --mount=type=cache,target=/go/pkg/mod/ \
     --mount=type=bind,target=. \
     CGO_ENABLED=0 GOARCH=$TARGETARCH go build \
     -ldflags="all=-s -w -X main.Version=$VERSION -X main.BuildTime=$(date +%FT%T%z)" \
-    -trimpath -o /bin/server ./cmd/app/
+    -tags=!healthcheck -trimpath -o /bin/server ./cmd/app/ && \
+    # Build the healthcheck binary.
+    CGO_ENABLED=0 GOARCH=$TARGETARCH go build \
+    -ldflags="all=-s -w" \
+    -trimpath -tags=healthcheck -o /bin/healthcheck ./cmd/healthcheck/main.go
 
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
@@ -45,7 +49,6 @@ RUN addgroup -S appgroup && \
     --home "/nonexistent" \
     --shell "/sbin/nologin" \
     --no-create-home \
-    --uid "${UID}" \
     appuser -G appgroup  && \
     # prepare the bin folder to receive the build's binaries
     mkdir -p /bin
@@ -58,13 +61,15 @@ RUN addgroup -S appgroup && \
 FROM scratch AS app
 
 # Copy the non-root user and group files from the builder stage
-COPY --from=builder /etc/passwd /etc/passwd
-COPY --from=builder /etc/group /etc/group
+COPY --from=build /etc/passwd /etc/passwd
+COPY --from=build /etc/group /etc/group
 
-# Copy the executable from the "build" stage.
+# Copy the app executable from the "build" stage.
 COPY --from=build /bin/server /bin/
+# Copy the healthcheck executable from the "build" stage.
+COPY --from=build /bin/healthcheck /bin/
 # Copy the configuration files from the "build" stage.
-COPY --from=builder /src/configs/ /configs/
+COPY --from=build /src/configs/ /configs/
 
 # Set the non-root user
 USER appuser:appgroup
@@ -72,7 +77,7 @@ USER appuser:appgroup
 # Expose the port that the application listens on.
 EXPOSE 8000
 
-# HEALTHCHECK --interval=60s --timeout=10s --start-period=10s --retries=3 CMD ["/app/healthcheck"]
+HEALTHCHECK --interval=60s --timeout=10s --start-period=10s --retries=3 CMD ["/bin/healthcheck"]
 
 # What the container should run when it is started.
 ENTRYPOINT [ "/bin/server" ]

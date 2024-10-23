@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -e
 
+# ######################################
+# Ensure that a go module is initiallized if not, skip the tests
+# #######################################
+ensure_go_module_initialized() {
+	if [[ ! -f go.mod ]]; then
+		echo "go.mod file not found, skipping the tests..."
+		exit 0
+	fi
+}
+
 # #######################################
 # Constants
 # #######################################
@@ -32,6 +42,8 @@ install_dependencies() {
 # Run the pre-commit
 # #######################################
 hook() {
+	install_dependencies
+
 	# get the root of the project
 	local root_dir
 	root_dir=$(git rev-parse --show-toplevel)
@@ -40,7 +52,7 @@ hook() {
 	pushd "${root_dir}" || exit
 
 	echo "Running golangci-lint..."
-	"${GO_BIN_PATH}"/golangci-lint run ./... || exit 1
+	"${GO_BIN_PATH}"/golangci-lint run ./.. || exit 1
 
 	popd >/dev/null || exit
 }
@@ -57,5 +69,6 @@ If golangci-lint finds any errors it will prevent the commit.
 
 EOF
 
-install_dependencies
+# run the hook if the go module is initialized
+ensure_go_module_initialized
 hook
