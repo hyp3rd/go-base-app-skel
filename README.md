@@ -104,7 +104,7 @@ A skeleton repository for starting new Go applications with recommended structur
 4. Push to the branch
 5. Create a Pull Request
 
-Refer to [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+Refer to [CONTRIBUTING](CONTRIBUTING.md) for more information.
 
 ## Author
 
