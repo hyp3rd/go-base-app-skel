@@ -23,17 +23,17 @@ A skeleton repository for starting new Go applications with recommended structur
 
    ```json
    {
-      "recommendations": [
-         "github.vscode-github-actions",
-         "golang.go",
-         "ms-vscode.makefile-tools",
-         "esbenp.prettier-vscode",
-         "pbkit.vscode-pbkit",
-         "trunk.io",
-         "streetsidesoftware.code-spell-checker",
-         "ms-azuretools.vscode-docker",
-         "eamodio.gitlens"
-      ]
+     "recommendations": [
+       "github.vscode-github-actions",
+       "golang.go",
+       "ms-vscode.makefile-tools",
+       "esbenp.prettier-vscode",
+       "pbkit.vscode-pbkit",
+       "trunk.io",
+       "streetsidesoftware.code-spell-checker",
+       "ms-azuretools.vscode-docker",
+       "eamodio.gitlens"
+     ]
    }
    ```
 
