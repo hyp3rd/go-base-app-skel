@@ -86,4 +86,4 @@ help:
 	@echo
 	@echo "For more information, see the project README."
 
-.PHONY: prepare-dev-toolchain test vet update-deps lint help
+.PHONY: prepare-toolchain test vet update-deps lint help
