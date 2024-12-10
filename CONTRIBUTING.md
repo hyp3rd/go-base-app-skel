@@ -1,8 +1,8 @@
 # Contributing Guidelines
 
-Thank you for being so interested in contributing to this bridge bwtween Telegram and Discord. I appreciate your willingness to share your knowledge and experience with me.
+Thank you for being so interested in contributing to this project. I appreciate your willingness to share your knowledge and experience with me.
 
-The goal of this projet is to automate the process of sending messages from Telegram to Discord and soon other sources. This project is still in its early stages and I am looking for smart contributors to help me improve it.
+It is still a project in its early stages and I am looking for smart contributors to help me improve it.
 
 ## How to Contribute
 
@@ -35,7 +35,7 @@ To ensure that contributions are consistent and aligned with the project's objec
 
 **Provide Detailed Information:** When reporting issues or submitting pull requests, provide as much relevant information as possible. This will help maintainers and other contributors understand your changes or your problems.
 
-**Respect Others:** Be kind and respectful towards other community members. Avoid disrespectful language and behaviour.
+**Respect Others:** Be kind and respectful towards other community members. Avoid disrespectful language and behavior.
 
 ## Conclusion
 

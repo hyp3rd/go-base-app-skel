@@ -1,4 +1,4 @@
-GOLANGCI_LINT_VERSION = v1.61.0
+GOLANGCI_LINT_VERSION = v1.62.2
 
 GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./.git/*")
 
@@ -62,7 +62,7 @@ lint: prepare-toolchain
 
 run:
 	$(call check_command_exists,gitversion) || (echo "${GITVERSION_NOT_INSTALLED}" && exit 1)
-	docker compose -f ../compose.yml -v down
+	docker compose -f compose.yaml -v down
 	export VERSION=${GITVERSION} && docker compose -f $(FILE) up --build -d
 
 # check_command_exists is a helper function that checks if a command exists.
@@ -81,6 +81,7 @@ help:
 	@echo "test\t\t\t\tRun all tests in the project."
 	@echo "update-deps\t\t\tUpdate all dependencies in the project."
 	@echo "lint\t\t\t\tRun the staticcheck and golangci-lint static analysis tools on all packages in the project."
+	@echo "run\t\t\t\tRun the project."
 	@echo
 	@echo "help\t\t\t\tPrint this help message."
 	@echo

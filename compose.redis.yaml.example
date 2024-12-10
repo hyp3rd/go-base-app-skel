@@ -1,0 +1,14 @@
+---
+services:
+  redis-store:
+    hostname: redis-store
+    container_name: redis-store
+    image: docker.io/bitnami/redis:7.2.5
+    volumes:
+      - redis-store_data:/bitnami/redis/data
+    environment:
+      - "REDIS_PASSWORD=bitnami"
+      - "REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL"
+    networks:
+      redis-net: null
+      db-net: null

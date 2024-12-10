@@ -1,0 +1,116 @@
+---
+services:
+  redis-node-1:
+    image: redis:7.2.5-alpine
+    command:
+      - redis-server
+      - --port 6379
+      - --cluster-enabled yes
+      - --cluster-config-file nodes.conf
+      - --cluster-node-timeout 5000
+      - --appendonly yes
+    container_name: redis-node-1
+    hostname: redis-node-1
+    networks:
+      redis-net:
+        ipv4_address: 100.10.0.11
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  redis-node-2:
+    extends:
+      service: redis-node-1
+    container_name: redis-node-2
+    hostname: redis-node-2
+    networks:
+      redis-net:
+        ipv4_address: 100.10.0.12
+
+  redis-node-3:
+    extends:
+      service: redis-node-1
+    container_name: redis-node-3
+    hostname: redis-node-3
+    networks:
+      redis-net:
+        ipv4_address: 100.10.0.13
+
+  redis-node-4:
+    extends:
+      service: redis-node-1
+    container_name: redis-node-4
+    hostname: redis-node-4
+    networks:
+      redis-net:
+        ipv4_address: 100.10.0.14
+
+  redis-node-5:
+    extends:
+      service: redis-node-1
+    container_name: redis-node-5
+    hostname: redis-node-5
+    networks:
+      redis-net:
+        ipv4_address: 100.10.0.15
+
+  redis-node-6:
+    extends:
+      service: redis-node-1
+    container_name: redis-node-6
+    hostname: redis-node-6
+    networks:
+      redis-net:
+        ipv4_address: 100.10.0.16
+
+  redis-cluster-init:
+    image: redis:7.2.5-alpine
+    container_name: redis-cluster-init
+    depends_on:
+      redis-node-1:
+        condition: service_healthy
+      redis-node-2:
+        condition: service_healthy
+      redis-node-3:
+        condition: service_healthy
+      redis-node-4:
+        condition: service_healthy
+      redis-node-5:
+        condition: service_healthy
+      redis-node-6:
+        condition: service_healthy
+    command: >
+      sh -c "
+      echo 'Waiting for Redis nodes to be ready...' &&
+      sleep 10 &&
+      redis-cli --cluster create 100.10.0.11:6379 100.10.0.12:6379 100.10.0.13:6379 100.10.0.14:6379 100.10.0.15:6379 100.10.0.16:6379 --cluster-replicas 1 --cluster-yes
+      "
+    networks:
+      redis-net:
+        ipv4_address: 100.10.0.17
+
+volumes:
+  redis-data-1:
+    driver: local
+  redis-data-2:
+    driver: local
+  redis-data-3:
+    driver: local
+  redis-data-4:
+    driver: local
+  redis-data-5:
+    driver: local
+  redis-data-6:
+    driver: local
+
+networks:
+  redis-net:
+    name: redis-net
+    driver: bridge
+    attachable: true
+    ipam:
+      config:
+        - subnet: 100.10.0.0/24

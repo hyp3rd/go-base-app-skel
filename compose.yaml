@@ -1,3 +1,15 @@
+---
+include:
+  - compose.common.yaml
+  - compose.${BACKEND}.yaml
+  - compose.redis-cluster.yaml
+  # - compose.redis.yaml # Uncomment this line to use Redis instead of Redis Cluster
+
+x-logging: &default-logging
+  options:
+    max-size: "12m"
+    max-file: "5"
+  driver: json-file
 # Comments are provided throughout this file to help you get started.
 # If you need more help, visit the Docker Compose reference guide at
 # https://docs.docker.com/go/compose-spec-reference/
@@ -14,7 +26,6 @@ services:
       target: app
     ports:
       - 8000:8000
-
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
 # start the database before your application. The `db-data` volume persists the
@@ -47,4 +58,3 @@ services:
 # secrets:
 #   db-password:
 #     file: db/password.txt
-
