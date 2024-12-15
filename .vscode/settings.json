@@ -30,6 +30,7 @@
         "errname",
         "errorlint",
         "esbenp",
+        "ewrap",
         "fatcontext",
         "fieldalignment",
         "FLUSHALL",
@@ -124,6 +125,7 @@
         "varnamelen",
         "wastedassign",
         "wrapcheck",
+        "Wrapf",
         "zerologlint"
     ]
 }

@@ -1,0 +1,47 @@
+---
+# development | production | local
+environment: "development"
+servers:
+  query_api:
+    port: 8000
+    read_timeout: 15s
+    write_timeout: 15s
+    shutdown_timeout: 5s
+  grpc:
+    port: 50051
+    max_connection_idle: 15m
+    max_connection_age: 30m
+    max_connection_age_grace: 5m
+    keepalive_time: 5m
+    keepalive_timeout: 20s
+
+rate_limiter:
+  requests_per_second: 100
+  burst_size: 50
+
+db:
+  host: <db_host>
+  port: "5432"
+  database: postgres
+  # session | transaction
+  pool_mode: "transaction"
+  max_open_conns: 25
+  max_idle_conns: 25
+  conn_max_lifetime: 5m
+  conn_attempts: 5
+  conn_timeout: 2s
+
+pubsub:
+  project_id: "local-project"
+  topic_id: "fingerprints"
+  subscription_id: "base-sub"
+  emulator_host: "localhost:8085" # For local development
+  ack_deadline: 30s
+  subscription:
+    receive_max_outstanding_messages: 10
+    receive_num_goroutines: 4
+    receive_max_extension: 30s
+  retry_policy:
+    max_attempts: 5
+    minimum_backoff: 10s
+    maximum_backoff: 600s
