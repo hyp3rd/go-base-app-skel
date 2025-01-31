@@ -1,10 +1,14 @@
-GOLANGCI_LINT_VERSION = v1.62.2
+GOLANGCI_LINT_VERSION = v1.63.3
 
 GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./.git/*")
 
 # Version environment variable to use in the build process
 GITVERSION = $(shell gitversion | jq .SemVer)
 GITVERSION_NOT_INSTALLED = "gitversion is not installed: https://github.com/GitTools/GitVersion"
+# Set this variable to the value needed for your project, if required, e.g. different from github.com.
+GO_PRIVATE=$(shell git config --get remote.origin.url | sed -e 's/git@github.com:/https:\\/\\/github.com\\//' | sed -e 's/http[s]*:\\/\\///' | sed -e 's/\\.git//')
+
+LOCAL_MODULE_PREFIX=your-org/your-project
 
 test:
 	go test -v -timeout 5m -cover ./...
@@ -34,8 +38,8 @@ prepare-toolchain:
 	@echo "Installing staticcheck...\n"
 	$(call check_command_exists,staticcheck) || go install honnef.co/go/tools/cmd/staticcheck@latest
 
-	@echo "Checking if GOPRIVATE is set correctly and contains dev.azure.com\n"
-	go env GOPRIVATE | grep dev.azure.com || (echo "GOPRIVATE does not contain dev.azure.com, setting GOPRIVATE" && go env -w GOPRIVATE=dev.azure.com/INGCDaaS/IngOne)
+	@echo "Checking if GOPRIVATE is set correctly and contains ${GO_PRIVATE}n"
+	go env GOPRIVATE | grep ${GO_PRIVATE} || (echo "GOPRIVATE does not contain ${GO_PRIVATE}, setting GOPRIVATE" && go env -w GOPRIVATE=${GO_PRIVATE})
 
 	@echo "Checking if pre-commit is installed..."
 	pre-commit --version || (echo "pre-commit is not installed, install it with 'pip install pre-commit'" && exit 1)
@@ -48,7 +52,7 @@ lint: prepare-toolchain
 
 	@echo "Running gci..."
 	@for file in ${GOFILES_NOVENDOR}; do \
-		gci write --skip-vendor --skip-generated $$file; \
+		gci write -s standard -s default -s "prefix(${LOCAL_MODULE_PREFIX})" --skip-vendor --skip-generated $$file; \
 	done
 
 	@echo "\nRunning gofumpt..."
